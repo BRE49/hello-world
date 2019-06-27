@@ -1,7 +1,6 @@
 # hello-world
 Just first repository
-Hi，everybody!I am eric,a new coder.
-New arrival, please take care of.
+new here for some experience.
 
 
 
