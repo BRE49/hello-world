@@ -1,0 +1,33 @@
+{
+  "pages":[
+    "pages/about/about",
+    "pages/weekly/weekly",
+    "pages/detail/detail"
+  ],
+  "tabBar":{
+    "list":[
+      {
+        "text":"每周推荐",
+        "pagePath":"pages/weekly/weekly",
+        "iconPath":"images/icons/3.png",
+        "selectedIconPath":"images/icons/4.png"
+      },
+      {
+        "text":"关于",
+        "pagePath":"pages/about/about",
+        "iconPath":"images/icons/5.png",
+        "selectedIconPath":"images/icons/6.png"
+      }
+    ],
+    "color":"#000",
+    "selectedColor":"#00f"
+  },
+  "window":
+  {
+    "navigationBarBackgroundColor": "#0094ff",
+    "navigationBarTextStyle": "white",
+    "enablePullDownRefresh":true,
+    "backgroundTextStyle":"dark"
+  }
+  
+}
