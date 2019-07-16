@@ -1,0 +1,29 @@
+// Based on examples in class 
+//下面的方法只满足部分正确性，为什么？ true ==> true  partial?  
+/* This method is satisfied under Partial Correctness, but NOT Total Correctness
+   Do you know why? */
+method InfiniteLoop_PC()
+  /*Pre-Condition*/  requires true;
+  /*Post-Condition*/ ensures true; 
+{
+  var x := 0;
+  while(true)
+  {
+    x := x+1;
+  }
+}
+
+//完全正确性，为什么？ false ==> true Total?
+/* This method is satisfied under Total Correctness.
+   Do you know why? */
+   
+method InfiniteLoop_TC()
+  /*Pre-Condition*/  requires false;
+  /*Post-Condition*/ ensures true; //TBH, this can be anything...
+{
+  var x := 0;
+  while(true)
+  {
+    x := x+1;
+  }
+}
