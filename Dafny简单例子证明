@@ -1,0 +1,120 @@
+//Question 1:计算输入数值的绝对值
+
+method Abs(x : int) returns (y : int)
+  // return value doesn't deviate from intended value
+  ensures 0 <= x ==> y == x;
+  ensures x < 0 ==> y == -x;
+   // return value is greater or equal to zero
+  ensures 0 <= y;
+{
+  if (x < 0)
+   { y := -x; }
+  else
+   { y := x; }
+}
+
+/*
+1: 我们没有任何先决条件，因为后置条件涵盖了x的每个可能值，所以我们不需要任何先决条件。
+
+2:    	
+	
+    Q ==> wp(S,R) ->
+    None ==> wp( if(x < 0) then {y := -x} else {y := x }, (0 <= x ==> y == x) && (x < 0 ==> y == -x) && (0 <= y)) ->
+                Conditional rule and assignment rule
+
+    Conditional rule:
+    ((x < 0) -> wp({y := -x}, (0 <= x ==> y == x) && (x < 0 ==> y == -x) && (0 <= y))) &&
+    ((0 <= x) -> wp({y := x}, (0 <= x ==> y == x) && (x < 0 ==> y == -x) && (0 <= y)))
+
+     -> ((x < 0) -> wp({y := -x}, (x < 0 ==> y == -x) && (0 <= y))) &&
+    	((0 <= x) -> wp({y := x}, (0 <= x ==> y == x) && (0 <= y)))
+	
+    Assignment rule:
+    (x <  0) ==> -x >= 0 && -x := -x && 
+    (0 <= x) ==> 0 <= x && x := x) 
+	
+	= true && true = true
+	
+
+3:由于abs方法的目的是它应该计算并返回插入数字的绝对值，因此我们不需要改变in-parameter（写入参数）或修改任何值。 因此，函数更合适，因为它们是“纯方法”的实现。
+*/
+
+// Question 2：
+
+method Q2(x : int, y : int) returns (big : int, small : int)
+  ensures big > small;
+{
+  if (x > y)
+   {big, small := x, y;}
+  else
+   {big, small := y, x;}
+}
+
+/*
+后置条件无法保持正确因为你不能确保big是大于small。如果x = y， big就不是较大值了
+Q: None
+R: big > small
+S: if (x > y) then {big, small := x, y;} else {big, small := y, x;}
+
+Q ==> wp(S,R) ->
+    Q ==> wp (S,R) ->
+    None ==> wp( if (x > y) then {big, small := x, y;} else {big, small := y, x;} , big > small)
+            conditional rule and assignment rule.
+
+    conditional rule:
+    ((x > y) -> wp({big, small := x, y;},(big > small))) &&
+    ((x <= y) -> wp({big, small := y, x;},(big > small)))
+
+    Assignment rule:
+    (x > y ==> x > y) && (x <= y ==> x < y)
+   
+    = true && false = false
+
+    This shows that if the inputs are equal the program will fail.这表明输入参数相等的话程序失败。
+
+解决方法：
+1:
+    Add a requires as seen below.
+
+    method Q2(x : int, y : int) returns (big : int, small : int)
+      requires x != y;
+      ensures big > small;
+    {
+      if (x > y)
+       {big, small := x, y;}
+      else
+       {big, small := y, x;}
+    }
+
+2:
+    Change ensure to be as below.
+
+    method Q2(x : int, y : int) returns (big : int, small : int)
+      ensures big >= small;
+    {
+      if (x > y)
+       {big, small := x, y;}
+      else
+       {big, small := y, x;}
+    }
+
+3:
+    It is possible by adding an else wich assigns dummy values if x and y are equal however that would defeat the
+    purpose of the program.
+
+    Example:
+    method Q2(x : int, y : int) returns (big : int, small : int)
+          ensures big >= small;
+        {
+          if (x > y)
+           {big, small := x, y;}
+          else if (x < y)
+           {big, small := y, x;}
+          else
+           {big, small := 1, 0}
+        }
+
+*/
+
+
+
