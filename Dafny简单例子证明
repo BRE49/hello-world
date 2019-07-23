@@ -14,7 +14,7 @@ method ComputeFact(n : nat) returns (res : nat)
  }
  
  /*The variables are natural numbers. You are supposed to prove that the program is correct with respect to a recursive definition
-  of the factorial function, defined mathematically as:
+  of the factorial function, defined mathematically as:证明函数在阶乘函数递归定义上的正确性
   
   fact(1) = 1
   fact(m) = m * fact(m - 1)
