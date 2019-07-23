@@ -1,0 +1,62 @@
+// Based on examples in class 
+//下面的方法只满足部分正确性，为什么？ true ==> true  partial?  
+/* This method is satisfied under Partial Correctness, but NOT Total Correctness
+   Do you know why? */
+method InfiniteLoop_PC()
+  /*Pre-Condition*/  requires true;
+  /*Post-Condition*/ ensures true; 
+{
+  var x := 0;
+  while(true)
+  {
+    x := x+1;
+  }
+}
+
+//完全正确性，为什么？ false ==> true Total?
+/* This method is satisfied under Total Correctness.
+   Do you know why? */
+   
+method InfiniteLoop_TC()
+  /*Pre-Condition*/  requires false;
+  /*Post-Condition*/ ensures true; //TBH, this can be anything...
+{
+  var x := 0;
+  while(true)
+  {
+    x := x+1;
+  }
+}
+
+
+//Binary Search
+
+method binary(a:array<int>, x:int) returns (m: int, found: bool) requires a.Length>=1 
+  /*Pre-Condition*/ requires forall i,j :: 0 <= i <= j < a.Length ==> a[i] <= a[j] 
+  /*Post-Condition*/ ensures forall k :: (found && (0 <= m < a.Length ==> a[m] == x)) 
+                                      || (!found && (0 <= k < a.Length ==> (!(a[k] == x)))) {
+    
+    var l := 0;         //lower
+    var u := a.Length;  //upper
+    m := -1;
+    found := false;
+    
+    while(l < u && !found)
+      invariant l <= u <= a.Length 
+      invariant (found && 0 <= m < a.Length) ==> a[m] == x
+      invariant forall i :: 0 <= i < a.Length ==> ((a[i] == x) ==> l <= i < u) {
+      
+          m := ((l+u)/2);
+          if(a[m] == x){
+              found := true;
+              return; //Fun facts: If this commented, then Dafny cannot prove termination!!! >.<
+          }
+          else if(a[m] < x){
+              l := m+1;
+          }
+          else{
+              u := m;
+          }
+     }
+}
+
