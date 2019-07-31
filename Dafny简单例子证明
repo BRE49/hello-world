@@ -348,7 +348,7 @@ method Abs(x : int) returns (y : int)
 3:由于abs方法的目的是它应该计算并返回插入数字的绝对值，因此我们不需要改变in-parameter（写入参数）或修改任何值。 因此，函数更合适，因为它们是“纯方法”的实现。
 */
 
-// Question 2：
+// Question 2： 比较两个数的大小
 
 method Q2(x : int, y : int) returns (big : int, small : int)
   ensures big > small;
