@@ -1,3 +1,9 @@
+
+//问题来源是下面的网址
+//http://www.cse.chalmers.se/edu/year/2016/course/course/TDA567_Testing_debugging_and_verification/Lab3.html
+
+
+
 //Question 4: Factorial 阶乘的证明
 
 method ComputeFact(n : nat) returns (res : nat)
